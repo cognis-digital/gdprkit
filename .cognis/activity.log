@@ -41,3 +41,4 @@
 2024-07-12T16:56:16  perf: micro-optimization
 2024-08-04T11:13:23  chore: ATHENA-PRIME calibration
 2024-08-27T18:30:30  chore(format): support stdin as a source
+2024-09-02T13:47:37  refactor(fixtures): load rules lazily for faster startup
