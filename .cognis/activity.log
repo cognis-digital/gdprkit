@@ -46,3 +46,4 @@
 2024-10-17T15:21:51  feat(mcp): dedupe overlapping findings
 2024-11-10T10:38:58  fix(scoring): tune severity weights
 2024-11-14T17:55:05  docs(core): add pagination to large reports
+2024-12-08T12:12:12  style(deps): add a JSON schema for output
