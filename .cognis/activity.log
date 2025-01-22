@@ -48,3 +48,4 @@
 2024-11-14T17:55:05  docs(core): add pagination to large reports
 2024-12-08T12:12:12  style(deps): add a JSON schema for output
 2024-12-31T19:29:19  build(scan): assert exit codes in tests
+2025-01-22T14:46:26  feat(cache): add a dry-run flag
