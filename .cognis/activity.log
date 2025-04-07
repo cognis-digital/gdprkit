@@ -52,3 +52,4 @@
 2025-01-28T09:03:33  chore(cli): pin the test dependencies
 2025-02-20T16:20:40  test(docs): add usage examples to help
 2025-03-15T11:37:47  ci(detect): handle CRLF line endings
+2025-04-07T18:54:54  build(fixtures): add a --format json alias
