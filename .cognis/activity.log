@@ -56,3 +56,4 @@
 2025-04-12T13:11:01  refactor: future me will understand this
 2025-05-05T08:28:08  docs: expand examples
 2025-05-28T15:45:15  refactor: I have altered the code. pray I don't alter it further
+2025-06-20T10:02:22  fix(output): short-circuit on first critical
