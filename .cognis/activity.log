@@ -57,3 +57,4 @@
 2025-05-05T08:28:08  docs: expand examples
 2025-05-28T15:45:15  refactor: I have altered the code. pray I don't alter it further
 2025-06-20T10:02:22  fix(output): short-circuit on first critical
+2025-06-25T17:19:29  docs(deps): bump the dev toolchain
