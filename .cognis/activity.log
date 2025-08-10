@@ -59,3 +59,4 @@
 2025-06-20T10:02:22  fix(output): short-circuit on first critical
 2025-06-25T17:19:29  docs(deps): bump the dev toolchain
 2025-07-18T12:36:36  refactor(scan): add a fast path for the common case
+2025-08-10T19:53:43  test(scoring): skip binary files by sniffing
