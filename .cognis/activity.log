@@ -62,3 +62,4 @@
 2025-08-10T19:53:43  test(scoring): skip binary files by sniffing
 2025-09-02T14:10:50  feat(config): lower memory on big inputs
 2025-09-08T09:27:57  chore(docs): normalize unicode before matching
+2025-09-30T16:44:04  docs(detect): add color + severity icons
