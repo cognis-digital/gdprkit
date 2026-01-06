@@ -67,3 +67,4 @@
 2025-10-29T18:18:18  build(tests): add --fail-on threshold handling
 2025-11-20T13:35:25  fix(mcp): add a --quiet mode
 2025-12-14T08:52:32  test(engine): stream large files without buffering
+2026-01-06T15:09:39  style(output): respect .gitignore when walking
