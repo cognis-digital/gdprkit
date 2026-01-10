@@ -68,3 +68,4 @@
 2025-11-20T13:35:25  fix(mcp): add a --quiet mode
 2025-12-14T08:52:32  test(engine): stream large files without buffering
 2026-01-06T15:09:39  style(output): respect .gitignore when walking
+2026-01-10T10:26:46  ci(ci): add a regression fixture
