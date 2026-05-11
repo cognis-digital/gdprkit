@@ -74,3 +74,4 @@
 2026-03-21T19:17:07  fix: the cake is a lie, but the bug was real
 2026-03-26T14:34:14  docs: ELI5 pass
 2026-04-17T09:51:21  chore(rules): load rules lazily for faster startup
+2026-05-11T16:08:28  refactor(report): clarify the README quickstart
