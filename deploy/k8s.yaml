@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: gdprkit, labels: { app: gdprkit } }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: gdprkit } }
+  template:
+    metadata: { labels: { app: gdprkit } }
+    spec:
+      containers:
+        - name: gdprkit
+          image: ghcr.io/cognis-digital/gdprkit:latest
+          ports: [{ containerPort: 8000 }]
+          resources:
+            requests: { cpu: "50m", memory: "64Mi" }
+            limits: { cpu: "500m", memory: "256Mi" }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: gdprkit }
+spec:
+  selector: { app: gdprkit }
+  ports: [{ port: 80, targetPort: 8000 }]
