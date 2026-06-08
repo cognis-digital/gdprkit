@@ -1,0 +1,10 @@
+{
+  "name": "@cognis/gdprkit",
+  "version": "0.2.0",
+  "description": "JavaScript port of gdprkit (Cognis Neural Suite)",
+  "bin": {
+    "gdprkit": "index.js"
+  },
+  "license": "LicenseRef-COCL-1.0",
+  "type": "module"
+}
