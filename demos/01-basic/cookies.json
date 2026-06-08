@@ -1,0 +1,23 @@
+[
+  {
+    "name": "sessionid",
+    "category": "strictly_necessary",
+    "consent_before_set": false,
+    "expiry_days": 1
+  },
+  {
+    "name": "_ga",
+    "category": "analytics",
+    "provider": "Google",
+    "third_party": true,
+    "consent_before_set": false,
+    "expiry_days": 730
+  },
+  {
+    "name": "fbpixel",
+    "category": "marketing",
+    "third_party": true,
+    "consent_before_set": true,
+    "expiry_days": 90
+  }
+]

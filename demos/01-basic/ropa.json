@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Customer billing",
+    "purpose": "Process payments and issue invoices",
+    "lawful_basis": "contract",
+    "categories": ["customers"],
+    "retention": "7 years (tax law)",
+    "recipients": ["payment processor"]
+  },
+  {
+    "name": "Marketing analytics",
+    "purpose": "",
+    "lawful_basis": "legitimate_interests",
+    "categories": ["website visitors"],
+    "retention": ""
+  },
+  {
+    "name": "Employee health records",
+    "purpose": "Occupational health management",
+    "lawful_basis": "legal_obligation",
+    "categories": ["employees", "health"],
+    "retention": "Duration of employment + 5 years",
+    "international_transfer": true,
+    "transfer_safeguard": ""
+  }
+]

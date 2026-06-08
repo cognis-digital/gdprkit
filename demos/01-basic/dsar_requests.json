@@ -1,0 +1,28 @@
+[
+  {
+    "id": "REQ-001",
+    "subject": "alice@example.com",
+    "type": "access",
+    "received": "2026-04-10"
+  },
+  {
+    "id": "REQ-002",
+    "subject": "bob@example.com",
+    "type": "erasure",
+    "received": "2026-05-20",
+    "extended": true
+  },
+  {
+    "id": "REQ-003",
+    "subject": "carol@example.com",
+    "type": "portability",
+    "received": "2026-05-25"
+  },
+  {
+    "id": "REQ-004",
+    "subject": "dan@example.com",
+    "type": "rectification",
+    "received": "2026-04-01",
+    "fulfilled": "2026-04-15"
+  }
+]
