@@ -20,6 +20,32 @@ pip install cognis-gdprkit
 gdprkit scan .            # → prioritized findings in seconds
 ```
 
+
+## Usage — step by step
+
+1. Install (Python 3.9+):
+   ```bash
+   pip install gdprkit
+   ```
+2. Track data-subject access requests and their deadlines from a JSON file:
+   ```bash
+   gdprkit dsar requests.json
+   gdprkit dsar requests.json --today 2026-06-13
+   ```
+3. Validate other records: Record of Processing Activities (Art. 30) and
+   cookie-consent compliance (ePrivacy Art. 5(3)):
+   ```bash
+   gdprkit ropa activities.json
+   gdprkit cookies cookies.json
+   ```
+4. Read the output: tables list per-record rows plus a `summary:` line; add
+   `--format json` (a top-level flag) for the full payload. Each command exits
+   `1` when non-compliant, `0` when compliant, `2` on input error.
+5. Gate CI on compliance:
+   ```bash
+   gdprkit --format json dsar requests.json > dsar-report.json
+   ```
+
 ## Contents
 
 - [Why gdprkit?](#why) · [Features](#features) · [Quick start](#quick-start) · [Example](#example) · [Architecture](#architecture) · [AI stack](#ai-stack) · [How it compares](#how-it-compares) · [Integrations](#integrations) · [Install anywhere](#install-anywhere) · [Related](#related) · [Contributing](#contributing)
