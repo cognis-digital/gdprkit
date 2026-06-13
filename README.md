@@ -20,6 +20,12 @@ pip install "git+https://github.com/cognis-digital/gdprkit.git"
 gdprkit scan .            # → prioritized findings in seconds
 ```
 
+<!-- cognis:layman:start -->
+## What is this?
+
+gdprkit is a command-line tool that helps businesses stay compliant with GDPR and CCPA privacy laws. You give it your data — a list of customer privacy requests, a record of what personal data you process, or a list of cookies your website sets — and it tells you exactly what is compliant, what is overdue, and what needs to be fixed. It tracks deadlines for responding to data-subject requests (such as "please delete my data"), validates that your data-processing register meets legal requirements, and flags cookies that are being set without proper consent. It is built for developers, compliance teams, and small businesses that need a practical, no-fuss way to audit their privacy posture without paying for expensive SaaS tools.
+<!-- cognis:layman:end -->
+
 ## Contents
 
 - [Why gdprkit?](#why) · [Features](#features) · [Quick start](#quick-start) · [Example](#example) · [Architecture](#architecture) · [AI stack](#ai-stack) · [How it compares](#how-it-compares) · [Integrations](#integrations) · [Install anywhere](#install-anywhere) · [Related](#related) · [Contributing](#contributing)
@@ -44,6 +50,42 @@ privacy-law compliance
 <div align="right"><a href="#top">↑ back to top</a></div>
 
 <a name="quick-start"></a>
+<!-- cognis:install:start -->
+## Install
+
+`gdprkit` is source-available (not published to PyPI) — every method below installs
+straight from GitHub. Pick whichever you prefer; the one-line scripts auto-detect
+the best tool available on your machine.
+
+**One-liner (Linux / macOS):**
+```sh
+curl -fsSL https://raw.githubusercontent.com/cognis-digital/gdprkit/HEAD/install.sh | sh
+```
+
+**One-liner (Windows PowerShell):**
+```powershell
+irm https://raw.githubusercontent.com/cognis-digital/gdprkit/HEAD/install.ps1 | iex
+```
+
+**Or install manually — any one of:**
+```sh
+pipx install "git+https://github.com/cognis-digital/gdprkit.git"     # isolated (recommended)
+uv tool install "git+https://github.com/cognis-digital/gdprkit.git"  # uv
+pip install "git+https://github.com/cognis-digital/gdprkit.git"      # pip
+```
+
+**From source:**
+```sh
+git clone https://github.com/cognis-digital/gdprkit.git
+cd gdprkit && pip install .
+```
+
+Then run:
+```sh
+gdprkit --help
+```
+<!-- cognis:install:end -->
+
 ## Quick start
 
 ```bash
