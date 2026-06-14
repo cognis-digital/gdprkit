@@ -1,4 +1,4 @@
-"""GDPRKIT command-line interface."""
+﻿"""GDPRKIT command-line interface."""
 from __future__ import annotations
 
 import argparse
@@ -92,7 +92,16 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         if args.command == "dsar":
-            today = _dt.date.fromisoformat(args.today) if args.today else None
+            today: _dt.date | None = None
+            if args.today:
+                try:
+                    today = _dt.date.fromisoformat(args.today)
+                except ValueError:
+                    print(
+                        f"error: --today {args.today!r} is not a valid YYYY-MM-DD date",
+                        file=sys.stderr,
+                    )
+                    return 2
             payload = DSARTracker.from_records(records).report(today)
             cols = ["id", "subject", "type", "received", "due", "days_remaining", "status"]
             _emit(payload, payload["requests"], cols, fmt)
@@ -107,7 +116,7 @@ def main(argv: list[str] | None = None) -> int:
             cols = ["name", "category", "needs_consent", "valid", "issues"]
             _emit(payload, payload["cookies"], cols, fmt)
             return 0 if payload["compliant"] else 1
-    except (ValueError, KeyError, TypeError) as exc:
+    except (ValueError, KeyError, TypeError, AttributeError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
 

@@ -1,4 +1,4 @@
-"""Smoke tests for GDPRKIT. Stdlib only, no network."""
+﻿"""Smoke tests for GDPRKIT. Stdlib only, no network."""
 import datetime as dt
 import json
 import os
@@ -125,6 +125,107 @@ class TestCLI(unittest.TestCase):
     def test_bad_input_exit_2(self):
         rc = main(["cookies", "/no/such/file.json"])
         self.assertEqual(rc, 2)
+
+
+if __name__ == "__main__":
+    unittest.main()
+
+class TestHardening(unittest.TestCase):
+    """Tests for input-validation and error-handling hardening."""
+
+    def _write(self, data):
+        fd, path = tempfile.mkstemp(suffix=".json")
+        with os.fdopen(fd, "w", encoding="utf-8") as fh:
+            json.dump(data, fh)
+        self.addCleanup(os.remove, path)
+        return path
+
+    # ---- core: non-list inputs raise TypeError ----
+
+    def test_dsar_from_records_non_list_raises(self):
+        with self.assertRaises(TypeError):
+            DSARTracker.from_records("not a list")
+
+    def test_ropa_non_list_raises(self):
+        with self.assertRaises(TypeError):
+            validate_ropa({"key": "val"})
+
+    def test_cookies_none_raises(self):
+        with self.assertRaises(TypeError):
+            audit_cookies(None)
+
+    # ---- core: non-dict records raise TypeError ----
+
+    def test_dsar_from_records_non_dict_record_raises(self):
+        with self.assertRaises(TypeError):
+            DSARTracker.from_records(["not", "dicts"])
+
+    def test_ropa_non_dict_record_raises(self):
+        with self.assertRaises(TypeError):
+            validate_ropa([42])
+
+    def test_cookies_non_dict_record_raises(self):
+        with self.assertRaises(TypeError):
+            audit_cookies([None])
+
+    # ---- core: empty DSAR id raises ValueError ----
+
+    def test_dsar_empty_id_raises(self):
+        with self.assertRaises(ValueError):
+            DSARRequest(id="", subject="a", type="access", received="2026-01-01")
+
+    # ---- CLI: non-dict record in input returns exit 2 ----
+
+    def test_cli_ropa_non_dict_record_exit_2(self):
+        path = self._write([42])
+        rc = main(["ropa", path])
+        self.assertEqual(rc, 2)
+
+    def test_cli_cookies_non_dict_record_exit_2(self):
+        path = self._write([None])
+        rc = main(["cookies", path])
+        self.assertEqual(rc, 2)
+
+    def test_cli_dsar_non_dict_record_exit_2(self):
+        path = self._write(["bad"])
+        rc = main(["dsar", path])
+        self.assertEqual(rc, 2)
+
+    # ---- CLI: malformed --today date returns exit 2 ----
+
+    def test_cli_dsar_bad_today_exit_2(self):
+        path = self._write([
+            {"id": "R1", "subject": "a", "type": "access", "received": "2026-01-01"},
+        ])
+        rc = main(["dsar", path, "--today", "not-a-date"])
+        self.assertEqual(rc, 2)
+
+    # ---- CLI: malformed JSON input returns exit 2 ----
+
+    def test_cli_malformed_json_exit_2(self):
+        fd, path = tempfile.mkstemp(suffix=".json")
+        with os.fdopen(fd, "w") as fh:
+            fh.write("{bad json}")
+        self.addCleanup(os.remove, path)
+        rc = main(["ropa", path])
+        self.assertEqual(rc, 2)
+
+    # ---- core: empty collections return compliant=True ----
+
+    def test_empty_dsar_compliant(self):
+        rep = DSARTracker.from_records([]).report()
+        self.assertTrue(rep["compliant"])
+        self.assertEqual(rep["total"], 0)
+
+    def test_empty_ropa_compliant(self):
+        res = validate_ropa([])
+        self.assertTrue(res["compliant"])
+        self.assertEqual(res["total"], 0)
+
+    def test_empty_cookies_compliant(self):
+        res = audit_cookies([])
+        self.assertTrue(res["compliant"])
+        self.assertEqual(res["total"], 0)
 
 
 if __name__ == "__main__":

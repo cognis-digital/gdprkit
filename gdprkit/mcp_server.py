@@ -1,6 +1,9 @@
-"""GDPRKIT MCP server — exposes scan() as an MCP tool for Cognis.Studio."""
+﻿"""GDPRKIT MCP server -- exposes audit functions as MCP tools for Cognis.Studio."""
 from __future__ import annotations
-from gdprkit.core import scan, to_json
+
+import json
+from gdprkit.core import DSARTracker, validate_ropa, audit_cookies
+
 
 def serve() -> int:
     """Start an MCP stdio server. Requires the optional 'mcp' extra:
@@ -14,9 +17,22 @@ def serve() -> int:
     app = FastMCP("gdprkit")
 
     @app.tool()
-    def gdprkit_scan(target: str) -> str:
-        """GDPR/CCPA DSAR, RoPA, and cookie-consent toolkit. Returns JSON findings."""
-        return to_json(scan(target))
+    def gdprkit_dsar(records_json: str) -> str:
+        """Evaluate DSAR records for GDPR deadline compliance. Returns JSON report."""
+        records = json.loads(records_json)
+        return json.dumps(DSARTracker.from_records(records).report(), indent=2)
+
+    @app.tool()
+    def gdprkit_ropa(records_json: str) -> str:
+        """Validate RoPA entries against Art. 30 requirements. Returns JSON report."""
+        records = json.loads(records_json)
+        return json.dumps(validate_ropa(records), indent=2)
+
+    @app.tool()
+    def gdprkit_cookies(records_json: str) -> str:
+        """Audit cookie-consent compliance (ePrivacy Art. 5(3)). Returns JSON report."""
+        records = json.loads(records_json)
+        return json.dumps(audit_cookies(records), indent=2)
 
     app.run()
     return 0

@@ -1,4 +1,4 @@
-"""GDPRKIT core engine - real compliance logic, stdlib only."""
+﻿"""GDPRKIT core engine - real compliance logic, stdlib only."""
 from __future__ import annotations
 
 import datetime as _dt
@@ -71,6 +71,8 @@ class DSARRequest:
     fulfilled: str | None = None  # ISO date or None
 
     def __post_init__(self) -> None:
+        if not self.id:
+            raise ValueError("DSAR id must not be empty")
         if self.type not in DSAR_TYPES:
             raise ValueError(
                 f"unknown DSAR type {self.type!r}; expected one of {sorted(DSAR_TYPES)}"
@@ -124,17 +126,24 @@ class DSARTracker:
 
     @classmethod
     def from_records(cls, records: list[dict[str, Any]]) -> "DSARTracker":
-        reqs = [
-            DSARRequest(
-                id=str(r["id"]),
-                subject=str(r.get("subject", "")),
-                type=str(r["type"]),
-                received=str(r["received"]),
-                extended=bool(r.get("extended", False)),
-                fulfilled=(str(r["fulfilled"]) if r.get("fulfilled") else None),
+        if not isinstance(records, list):
+            raise TypeError(f"records must be a list, got {type(records).__name__!r}")
+        reqs = []
+        for i, r in enumerate(records):
+            if not isinstance(r, dict):
+                raise TypeError(
+                    f"record at index {i} must be a dict, got {type(r).__name__!r}"
+                )
+            reqs.append(
+                DSARRequest(
+                    id=str(r["id"]),
+                    subject=str(r.get("subject", "")),
+                    type=str(r["type"]),
+                    received=str(r["received"]),
+                    extended=bool(r.get("extended", False)),
+                    fulfilled=(str(r["fulfilled"]) if r.get("fulfilled") else None),
+                )
             )
-            for r in records
-        ]
         return cls(reqs)
 
     def report(self, today: _dt.date | None = None) -> dict[str, Any]:
@@ -169,8 +178,14 @@ class ROPAEntry:
 
 def validate_ropa(records: list[dict[str, Any]]) -> dict[str, Any]:
     """Validate processing-activity records against Art. 30 requirements."""
+    if not isinstance(records, list):
+        raise TypeError(f"records must be a list, got {type(records).__name__!r}")
     results: list[dict[str, Any]] = []
-    for raw in records:
+    for i, raw in enumerate(records):
+        if not isinstance(raw, dict):
+            raise TypeError(
+                f"record at index {i} must be a dict, got {type(raw).__name__!r}"
+            )
         entry = ROPAEntry(
             name=str(raw.get("name", "")),
             purpose=str(raw.get("purpose", "")),
@@ -226,8 +241,14 @@ def validate_ropa(records: list[dict[str, Any]]) -> dict[str, Any]:
 # --------------------------------------------------------------------------- #
 def audit_cookies(records: list[dict[str, Any]]) -> dict[str, Any]:
     """Audit cookies for valid prior consent / categorization."""
+    if not isinstance(records, list):
+        raise TypeError(f"records must be a list, got {type(records).__name__!r}")
     results: list[dict[str, Any]] = []
-    for raw in records:
+    for i, raw in enumerate(records):
+        if not isinstance(raw, dict):
+            raise TypeError(
+                f"record at index {i} must be a dict, got {type(raw).__name__!r}"
+            )
         name = str(raw.get("name", ""))
         category = str(raw.get("category", "")).lower()
         consent_before_set = bool(raw.get("consent_before_set", False))
