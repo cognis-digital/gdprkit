@@ -1,0 +1,17 @@
+$ gdprkit-emit --help
+
+usage: gdprkit [-h] [--version] [--format {table,json}]
+               {dsar,ropa,cookies} ...
+
+GDPR/CCPA DSAR, RoPA, and cookie-consent toolkit
+
+positional arguments:
+  {dsar,ropa,cookies}
+    dsar                track data-subject access requests and deadlines
+    ropa                validate Record of Processing Activities (Art. 30)
+    cookies             audit cookie-consent compliance (ePrivacy Art. 5(3))
+
+options:
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+  --format {table,json}

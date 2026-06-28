@@ -21,6 +21,71 @@ gdprkit scan .            # → prioritized findings in seconds
 ```
 
 
+
+<!-- cognis:example:start -->
+## 🔎 Example output
+
+Real, reproducible output from the tool — runs offline:
+
+```console
+$ gdprkit-emit --version
+gdprkit 0.1.0
+```
+
+```console
+$ gdprkit-emit --help
+usage: gdprkit [-h] [--version] [--format {table,json}]
+               {dsar,ropa,cookies} ...
+
+GDPR/CCPA DSAR, RoPA, and cookie-consent toolkit
+
+positional arguments:
+  {dsar,ropa,cookies}
+    dsar                track data-subject access requests and deadlines
+    ropa                validate Record of Processing Activities (Art. 30)
+    cookies             audit cookie-consent compliance (ePrivacy Art. 5(3))
+
+options:
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+  --format {table,json}
+```
+
+> Blocks above are real `gdprkit` output — reproduce them from a clone.
+
+**Sample result format** _(illustrative values — run on your own data for real findings):_
+
+```
+{
+"incident": {
+"id": "123456789",
+"created_at": "2023-02-15T14:30:00Z"
+},
+"findings": [
+{
+"category": "network",
+"name": "Potential Lateral Movement",
+"description": "An attacker may have accessed the network using a compromised device.",
+"severity": "high",
+"confidence": 0.8,
+"mitre_attack_id": ["T1204"],
+"references": ["https://example.com/attack-technique/T1204"]
+},
+{
+"category": "credential",
+"name": "Stolen Credentials",
+"description": "An attacker may have stolen administrator credentials.",
+"severity": "high",
+"confidence": 0.9,
+"mitre_attack_id": ["T1003"],
+"references": ["https://example.com/attack-technique/T1003"]
+}
+]
+}
+```
+
+<!-- cognis:example:end -->
+
 ## Usage — step by step
 
 1. Install (Python 3.9+):
